@@ -5,8 +5,6 @@
   "version": "0.1.0",
   "description": "Your Swinger assistant.",
 
- 
-
    "content_scripts": [
       {
           "matches": [
@@ -19,7 +17,8 @@
           "js": [
               "external/jquery.min.js",
               "content.js"
-          ]
+          ],
+          "run_at" : "document_end"
       }
   ]
 
