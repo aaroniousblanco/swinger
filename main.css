@@ -256,3 +256,20 @@ ul {
 #story img {
 	width: 100%;
 }
+
+.performance_table {
+	width: 100%;
+}
+
+.scripts-heading {
+	width: 180px;
+}
+
+.clipboardButton {
+	display: inline-block;
+	padding: 5px 10px;
+	background: rgba(255,255,255,.7);
+	color: #333;
+	border-radius: 10px;
+	cursor: pointer;
+}

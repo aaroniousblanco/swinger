@@ -76,7 +76,7 @@ $(document).ready(function() {
                             <span class="add hide">+</span>
                             <h3>BUGSPLAT <i class="icon-tech-bug orange"></i></h3>
                         </div>
-                        <div class="bar">
+                        <div class="bar clipboard-text">
                             <table>
                                 <tr>
                                     <td class="label"><strong>URL: <strong></td>
@@ -91,7 +91,7 @@ $(document).ready(function() {
                                     <td id="bugSplatTimestamp"></td>
                                 </tr>
                             </table>
-
+                            <div class="clipboardButton">Copy to clipboard</div>
                         </div>
                     </li>
                     <li class="module">
@@ -207,6 +207,24 @@ $(document).ready(function() {
     	this.duration = isDefined(detail.duration).toFixed(2)
     }
 
+    function copyToClipboard(){
+        // preventDefault();
+        var text = $(".clipboard-text").html();
+    
+        // Create the textarea input to hold our text.
+        const element = document.createElement('textarea');
+        element.value = text;
+        // Add it to the document so that it can be focused.
+        document.body.appendChild(element);
+        // Focus on the element so that it can be copied.
+        element.focus();
+        element.setSelectionRange(0, element.value.length);
+        // Execute the copy command.
+        document.execCommand('copy');
+        // Remove the element to keep the document clear.
+        document.body.removeChild(element);
+    }
+
     function measurePerf(){
     	var data = performance.getEntries();
     	console.log("data: ", data);
@@ -245,7 +263,29 @@ $(document).ready(function() {
                     timeSummary.other += item.duration !== undefined ? item.duration : 0;
                 }
             }
+            var perfItem = new PerfItem(item)
+            
+            if(perfItem.type == "script"){
+                perfList.push(perfItem)
+            }
         });
+
+        var template_compiled = `<table class="performance_table">
+        <tr>
+            <th  class="scripts-heading">Script</th>
+            <th>Start Time</th>
+            <th>Duration</th>
+        </tr>`;
+        perfList.forEach((el) =>  {
+            template_compiled += `<tr class="${el.type}">
+            <td>${el.name}</td>
+            <td>${el.startTime}</td>
+            <td>${el.duration} ms</td>
+        </tr>`;
+        });
+        template_compiled += '</table>';
+
+        $('#scripts').html(template_compiled)
 
         var bytePctSummary = {
             script: 0,
@@ -629,6 +669,11 @@ $(document).ready(function() {
             $("#swingr-window").removeClass('left');
             $("#swingr-window").addClass('right');
         }
+    });
+
+    $(".clipboardButton").on('click', function(event){
+        event.preventDefault();
+        copyToClipboard();
     });
 
 });
