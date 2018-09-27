@@ -80,6 +80,7 @@
 
 .orange {
 	color: orange;
+	margin-right: 10px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -125,8 +126,18 @@ table td {
 	vertical-align: top;
 }
 
+.checkboxes {
+	text-align: left;
+	padding: 18px;
+}
+
+.label-items {
+	vertical-align: middle;
+}
+
 table td.label {
 	width: 30px;
+	line-height: 25px;
 }
 
 ul {
@@ -175,7 +186,7 @@ ul {
 
 .options {
 	/* height: 15px; */
-	padding: 3px;
+	padding: 3px 0 0 10px;
 	background: #999;
 	text-align: left;
 }

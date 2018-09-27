@@ -1,15 +1,12 @@
 // TODO: Add category logic, integrate Todd's stuff, update styling
 
 $(document).ready(function() {
-    let html = `	<div id="swingr-window" class="in">
+    let html = `	<div id="swingr-window" class="in right">
             <div id="tab">
                 <i class="icon-social-organization orange"></i>
             </div>
             <div class="swingr-window-headline">
                 <h1>SWINGR</h1>
-                <div class="switch-window-btn">
-
-                </div>
             </div>
             <div class="swingr-content">
                 <ul>
@@ -17,42 +14,49 @@ $(document).ready(function() {
                         <div class="options">
                             <span class="remove">x</span>
                             <span class="add hide">+</span>
-                            <h3>OBJECT INFO <i class="icon-tech-bug orange"></i></h3>
+                            <h3>OBJECT INFO <i class="icon-tech-script orange"></i></h3>
                         </div>
     	    				<div class="bar">
     	    					<table>
     	    						<tr>
     	    							<td class="label"><strong>ID: <strong></td>
-    	    							<td id="dom-uuid"></td>
+    	    							<td id="dom-uuid" class="label-items"></td>
     	    						</tr>
     	    						<tr>
     	    							<td class="label"><strong>Title: <strong></td>
-    	    							<td id="title"></td>
+    	    							<td id="title" class="label-items"></td>
     	    						</tr>
     	    						<tr>
     	    							<td class="label"><strong>Section: <strong></td>
-    	    							<td id="section"></td>
+    	    							<td id="section" class="label-items"></td>
     	    						</tr>
     	    						<tr>
     	    							<td class="label"><strong>Webtype: <strong></td>
-    	    							<td id="web-type"></td>
+    	    							<td id="web-type" class="label-items"></td>
     	    						</tr>
     	    						<tr>
     	    							<td class="label"><strong>Topics: <strong></td>
-    	    							<td id="topics"></td>
+    	    							<td id="topics" class="label-items"></td>
     	    						</tr>
     	                            <tr>
     	    							<td class="label"><strong>Category: <strong></td>
-    	    							<td id="category"></td>
+    	    							<td id="category" class="label-items"></td>
     	    						</tr>
     	    					</table>
-    	                        <div>
-    	                            <input type="checkbox" id="containers"> Containers<br>
-    	                            <input type="checkbox" id="stories"> Stories<br>
-    	                            <input type="checkbox" id="links"> Links<br>
-    	                            <input type="checkbox" id="galleries"> Galleries<br>
-    	                        </div>
     	    				</div>
+                    </li>
+                    <li class="module swing">
+                        <div class="options">
+                            <span class="remove">x</span>
+                            <span class="add hide">+</span>
+                            <h3>OBJECT FILTER<i class="icon-tech-script orange"></i></h3>
+                        </div>
+                        <div class="bar checkboxes">
+                            <input type="checkbox" id="containers"> Containers<br>
+                            <input type="checkbox" id="stories"> Stories<br>
+                            <input type="checkbox" id="links"> Links<br>
+                            <input type="checkbox" id="galleries"> Galleries<br>
+                        </div>
                     </li>
                     <li class="module swing">
                         <div class="options">
@@ -70,7 +74,7 @@ $(document).ready(function() {
                         <div class="options">
                             <span class="remove">x</span>
                             <span class="add hide">+</span>
-                            <h3>BUGSPLAT <i class="icon-art-photography orange"></i></h3>
+                            <h3>BUGSPLAT <i class="icon-tech-bug orange"></i></h3>
                         </div>
                         <div class="bar">
                             <div id="screenshotButton" class="button-big">
@@ -260,7 +264,15 @@ $(document).ready(function() {
     $("[data-objectuuid]").mouseenter(function() {
         if ((!storiesChecked) && (!containersChecked) && (!linksChecked) && (!galleriesChecked)) {
             $("[data-uuid], [data-objectuuid]").css('outline', 'unset');
-            $(this).css('outline', '10px solid rgba(255, 255, 100, .5)');
+            if ($(this).data('webtype') === 'story') {
+                $(this).css('outline', '10px solid rgba(255, 255, 100, .5)');
+            } else if ($(this).data('webtype') === 'Gallery') {
+                $(this).css('outline', '10px solid rgba(222, 127, 69, 0.92)');
+            } else if ($(this).data('webtype') === 'Link') {
+                $(this).css('outline', '10px solid rgba(69, 94, 222, 0.92)');
+            } else if ($(this).data('webtype') === 'container') {
+                $(this).css('outline', '10px solid rgba(100, 255, 100, .5)');
+            }
         }
     });
 
@@ -369,6 +381,16 @@ $(document).ready(function() {
         } else {
             linksChecked = false;
             $allLinks.css('outline', 'unset');
+        }
+    });
+
+    $('.switch-window-btn').click(function() {
+        if ($("#swingr-window").hasClass('right')) {
+            $("#swingr-window").removeClass('right');
+            $("#swingr-window").addClass('left');
+        } else {
+            $("#swingr-window").removeClass('left');
+            $("#swingr-window").addClass('right');
         }
     });
 
