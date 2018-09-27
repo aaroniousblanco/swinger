@@ -21,6 +21,11 @@
           ],
           "run_at" : "document_end"
       }
-  ]
+  ],
+
+  "icons": { "16": "./Swingr-icon/1x/Asset_3.png",
+            "48": "./Swingr-icon/3x/Asset_3@3x.png" }
+
+
 
 }
