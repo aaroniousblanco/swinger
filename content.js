@@ -133,6 +133,7 @@ $(document).ready(function() {
                                     <td id="otherLoadTime"></td>
                                 </tr>
                             </table>
+                            <div id="scripts"></div>
                         </div>
                     </li>
                 </ul>
