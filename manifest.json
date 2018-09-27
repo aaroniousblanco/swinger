@@ -16,7 +16,8 @@
           ],
           "js": [
               "external/jquery.min.js",
-              "content.js"
+              "content.js",
+              "main.js"
           ],
           "run_at" : "document_end"
       }

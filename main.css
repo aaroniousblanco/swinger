@@ -1,3 +1,28 @@
+.stories-color {
+	color: rgba(255, 255, 100, .5);
+	display: inline;
+}
+
+.containers-color {
+	color: rgba(100, 255, 100, .5);
+	display: inline;
+}
+
+.links-color {
+	color: rgba(69, 94, 222, 0.92);
+	display: inline;
+}
+
+.galleries-color {
+	color: rgba(222, 127, 69, 0.92);
+	display: inline;
+}
+
+#tab svg {
+	height: 40px;
+	padding-top: 5px;
+}
+
 #swingr-window {
 	position: fixed;
 	top: 0;
