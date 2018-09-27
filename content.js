@@ -49,6 +49,18 @@ $(document).ready(function() {
                         <div class="options">
                             <span class="remove">x</span>
                             <span class="add hide">+</span>
+                            <h3>OPEN IN SWING<i class="icon-tech-script orange"></i></h3>
+                        </div>
+                        <div class="bar">
+                            <div id="swingOpenButton" class="button-big">
+                                <i class="icon-tech-script"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="module swing">
+                        <div class="options">
+                            <span class="remove">x</span>
+                            <span class="add hide">+</span>
                             <h3>OBJECT FILTER<i class="icon-tech-script orange"></i></h3>
                         </div>
                         <div class="bar checkboxes">
@@ -56,18 +68,6 @@ $(document).ready(function() {
                             <input type="checkbox" id="stories"> Stories<br>
                             <input type="checkbox" id="links"> Links<br>
                             <input type="checkbox" id="galleries"> Galleries<br>
-                        </div>
-                    </li>
-                    <li class="module swing">
-                        <div class="options">
-                            <span class="remove">x</span>
-                            <span class="add hide">+</span>
-                            <h3>OPEN IN SWING<i class="icon-tech-script orange"></i></h3>
-                        </div>
-                        <div class="bar">
-                            <div id="swingOpenButton" class="button-big">
-                                <i class="icon-tech-script"></i>
-                            </div>
                         </div>
                     </li>
                     <li class="module screenshot">
@@ -91,9 +91,7 @@ $(document).ready(function() {
                                     <td id="bugSplatTimestamp"></td>
                                 </tr>
                             </table>
-                            <div id="screenshotButton" class="button-big">
-                                <i class="icon-art-photography"></i>
-                            </div>
+
                         </div>
                     </li>
                     <li class="module">
@@ -117,68 +115,8 @@ $(document).ready(function() {
                                     <td id="imgSize"></td>
                                 </tr>
                             </table>
-                            <div class="pie display">
-                                <div id="chart"></div>
-                            </div>
                         </div>
                     </li>
-                    <li class="module">
-                        <div class="options">
-                            <span class="remove">x</span>
-                            <span class="add hide">+</span>
-                            <h3>ANALYTICS <i class="icon-tech-notification orange"></i></h3>
-                        </div>
-                        <div class="bar">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-                        </div>
-                    </li>
-                    <li class="module">
-                        <div class="options">
-                            <span class="remove">x</span>
-                            <span class="add hide">+</span>
-                            <h3>Notifications <i class="icon-tech-under-construction-1 orange"></i></h3>
-                        </div>
-                        <div class="bar">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-                            <p>Morbi dapibus purus in nibh volutpat, ut volutpat mauris viverra. Cras fermentum sem in dolor ullamcorper varius.</p>
-                            <p>Aenean sagittis laoreet ornare. Sed faucibus pellentesque molestie. Nulla maximus libero vel mauris eleifend, a mollis ligula luctus.</p>
-                        </div>
-                    </li>
-                    <li class="module">
-                        <div class="options">
-                            <span class="remove">x</span>
-                            <span class="add hide">+</span>
-                            <h3>Screenshot <i class="icon-tech-cloud-download orange"></i></h3>
-                        </div>
-                        <div class="bar">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-                        </div>
-                    </li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Peformance <i class="icon-tech-performance orange"></i></h3>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Analytics <i class="icon-tech-notification orange"></i></h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Notifications <i class="icon-tech-under-construction-1 orange"></i></h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    					<p>Morbi dapibus purus in nibh volutpat, ut volutpat mauris viverra. Cras fermentum sem in dolor ullamcorper varius.</p>
-	    					<p>Aenean sagittis laoreet ornare. Sed faucibus pellentesque molestie. Nulla maximus libero vel mauris eleifend, a mollis ligula luctus.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Screenshot <i class="icon-tech-cloud-download orange"></i></h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
                 </ul>
             </div>
         </div>`,
@@ -647,3 +585,65 @@ $(document).ready(function() {
     });
 
 });
+
+
+//unused, but could be added at some point
+var screenshotButtonHTML = `<div id="screenshotButton" class="button-big"><i class="icon-art-photography"></i></div>`;
+var pieChartBaseHTML = `<div class="pie display"><div id="chart"></div></div>`;
+var extraSectionsHTML = `<li class="module">
+    <div class="options">
+        <span class="remove">x</span>
+        <span class="add hide">+</span>
+        <h3>ANALYTICS <i class="icon-tech-notification orange"></i></h3>
+    </div>
+    <div class="bar">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
+    </div>
+</li>
+<li class="module">
+    <div class="options">
+        <span class="remove">x</span>
+        <span class="add hide">+</span>
+        <h3>Notifications <i class="icon-tech-under-construction-1 orange"></i></h3>
+    </div>
+    <div class="bar">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
+        <p>Morbi dapibus purus in nibh volutpat, ut volutpat mauris viverra. Cras fermentum sem in dolor ullamcorper varius.</p>
+        <p>Aenean sagittis laoreet ornare. Sed faucibus pellentesque molestie. Nulla maximus libero vel mauris eleifend, a mollis ligula luctus.</p>
+    </div>
+</li>
+<li class="module">
+    <div class="options">
+        <span class="remove">x</span>
+        <span class="add hide">+</span>
+        <h3>Screenshot <i class="icon-tech-cloud-download orange"></i></h3>
+    </div>
+    <div class="bar">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
+    </div>
+</li>
+<li class="module">
+    <div class="bar">
+        <h3>Peformance <i class="icon-tech-performance orange"></i></h3>
+    </div>
+</li>
+<li class="module">
+    <div class="bar">
+        <h3>Analytics <i class="icon-tech-notification orange"></i></h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
+    </div>
+</li>
+<li class="module">
+    <div class="bar">
+        <h3>Notifications <i class="icon-tech-under-construction-1 orange"></i></h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
+        <p>Morbi dapibus purus in nibh volutpat, ut volutpat mauris viverra. Cras fermentum sem in dolor ullamcorper varius.</p>
+        <p>Aenean sagittis laoreet ornare. Sed faucibus pellentesque molestie. Nulla maximus libero vel mauris eleifend, a mollis ligula luctus.</p>
+    </div>
+</li>
+<li class="module">
+    <div class="bar">
+        <h3>Screenshot <i class="icon-tech-cloud-download orange"></i></h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
+    </div>
+</li>`;

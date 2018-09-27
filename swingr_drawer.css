@@ -26,6 +26,7 @@
 	width: 400px;
 	height: 100%;
 	background: rgba(0,0,0,.75);
+	padding-bottom: 100px;
 }
 
 #swingr-window #tab {
