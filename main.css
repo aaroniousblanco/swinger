@@ -1,21 +1,29 @@
 .stories-color {
 	color: rgba(255, 255, 100, .5);
 	display: inline;
+	line-height: 38px;
+	font-size: 16px;
 }
 
 .containers-color {
 	color: rgba(100, 255, 100, .5);
 	display: inline;
+	line-height: 38px;
+	font-size: 16px;
 }
 
 .links-color {
-	color: rgba(69, 94, 222, 0.92);
+	color: rgb(0,255,255);
 	display: inline;
+	line-height: 38px;
+	font-size: 16px;
 }
 
 .galleries-color {
 	color: rgba(222, 127, 69, 0.92);
 	display: inline;
+	line-height: 38px;
+	font-size: 16px;
 }
 
 #tab svg {

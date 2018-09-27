@@ -506,7 +506,7 @@ $(document).ready(function() {
             } else if ($(this).data('webtype') === 'Gallery') {
                 $(this).css('outline', '10px solid rgba(222, 127, 69, 0.92)');
             } else if ($(this).data('webtype') === 'Link') {
-                $(this).css('outline', '10px solid rgba(69, 94, 222, 0.92)');
+                $(this).css('outline', '10px solid rgb(0,255,255)');
             } else if ($(this).data('webtype') === 'container') {
                 $(this).css('outline', '10px solid rgba(100, 255, 100, .5)');
             }
@@ -614,7 +614,7 @@ $(document).ready(function() {
     $("#links").change(function() {
         if ($(this).is(":checked")) {
             linksChecked = true;
-            $allLinks.css('outline', '10px solid rgba(69, 94, 222, 0.92)');
+            $allLinks.css('outline', '10px solid rgb(0,255,255)');
         } else {
             linksChecked = false;
             $allLinks.css('outline', 'unset');
