@@ -10,6 +10,32 @@
 	font-size: 14px;
 }
 
+.switch-window-btn {
+    height: 20px;
+    background-color: orange;
+    width: 20px;
+    right: 10px;
+    top: 14px;
+    position: absolute;
+}
+
+.right {
+    left: unset;
+}
+
+.right .swingr-window-headline h1 {
+    position: absolute;
+    right: 0px;
+}
+
+.left {
+    left: 0;
+}
+
+.left #tab {
+    left: 400px;
+}
+
 .swingr-content {
 	display: none;
 	overflow: scroll;

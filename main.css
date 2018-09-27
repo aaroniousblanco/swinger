@@ -1,13 +1,18 @@
 #swingr-window {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	right: -400px;
 	z-index: 20;
 	width: 400px;
-	height: 1000px;
+	height: 100vh;
 	color: #fff;
 	font-family: Arial;
 	font-size: 14px;
+}
+
+.swingr-window-headline {
+	height: 50px;
+	background: rgba(0, 0, 0, 0.75);
 }
 
 .swingr-content {
@@ -64,16 +69,27 @@
 	height: 50px;
 	background: rgba(0,0,0,.75);
 	cursor: pointer;
+	text-align: center;
+}
+
+#tab i {
+	font-size: 25px;
+	transform: translateY(40%);
+	display: block;
+}
+
+.orange {
+	color: orange;
 }
 
 h1, h2, h3, h4, h5 {
 	margin-top: 0;
 	margin-bottom: 0;
-	color: #fff;
+	color: #fff !important;
 }
 
 #swingr-window h1 {
-	padding: 20px;
+	padding: 10px;
 }
 
 #swingr-window h3 {
