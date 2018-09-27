@@ -101,18 +101,36 @@ $(document).ready(function() {
                             <h3>PERFORMANCE <i class="icon-tech-performance orange"></i></h3>
                         </div>
                         <div class="bar">
-                            <table>
+                            <table class="data-summary">
                                 <tr>
-                                    <td class="label"><strong>Script Size (Total): <strong></td>
+                                    <td class="label"><strong>Page (Total): <strong></td>
+                                    <td id="pageSize"></td>
+                                    <td id="pageSizePct"></td>
+                                    <td id="pageLoadTime"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><strong>Scripts: <strong></td>
                                     <td id="scriptSize"></td>
+                                    <td id="scriptSizePct"></td>
+                                    <td id="scriptLoadTime"></td>
                                 </tr>
                                 <tr>
-                                    <td class="label"><strong>Style Size (Total): <strong></td>
+                                    <td class="label"><strong>Styles: <strong></td>
                                     <td id="styleSize"></td>
+                                    <td id="styleSizePct"></td>
+                                    <td id="styleLoadTime"></td>
                                 </tr>
                                 <tr>
-                                    <td class="label"><strong>Image Size (Total): <strong></td>
+                                    <td class="label"><strong>Images: <strong></td>
                                     <td id="imgSize"></td>
+                                    <td id="imgSizePct"></td>
+                                    <td id="imgLoadTime"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><strong>Other: <strong></td>
+                                    <td id="otherSize"></td>
+                                    <td id="otherSizePct"></td>
+                                    <td id="otherLoadTime"></td>
                                 </tr>
                             </table>
                         </div>
@@ -201,37 +219,66 @@ $(document).ready(function() {
         var byteSummary = {
             script: 0,
             link: 0,
-            img: 0
+            img: 0,
+            total: 0,
+            other: 0
         };
 
         var timeSummary = {
             script: 0,
             link: 0,
-            img: 0
+            img: 0,
+            total: 0,
+            other: 0
         };
 
-        var totalBytes = 0;
-
         data.forEach((item) => {
-            console.log(item.initiatorType);
-            if ('link' == item.initiatorType || 'script' == item.initiatorType || 'img' == item.initiatorType) {
-                byteSummary[item.initiatorType] += item.transferSize;
-                timeSummary[item.initiatorType] += item.duration;
-            }
+            // console.log(item.initiatorType);
             if (!isNaN(item.transferSize)) {
-                totalBytes += item.transferSize;
+                byteSummary.total += item.transferSize;
+                console.log(item.duration);
+                if ('link' == item.initiatorType || 'script' == item.initiatorType || 'img' == item.initiatorType) {
+                    byteSummary[item.initiatorType] += item.transferSize;
+                    timeSummary[item.initiatorType] += item.duration !== undefined ? item.duration : 0;
+                } else {
+                    byteSummary.other += item.transferSize;
+                    timeSummary.other += item.duration !== undefined ? item.duration : 0;
+                }
             }
         });
 
+        var bytePctSummary = {
+            script: 0,
+            link: 0,
+            img: 0,
+            total: 0,
+            other: 0
+        };
 
-        byteSummary.other = totalBytes - (byteSummary.img + byteSummary.script + byteSummary.link);
-        console.log(byteSummary);
-        console.log(timeSummary);
-        console.log(byteSummary.img + byteSummary.script + byteSummary.link);
-        console.log(totalBytes);
-        $("#scriptSize").text(byteSummary.script);
-        $("#styleSize").text(byteSummary.link);
-        $("#imgSize").text(byteSummary.img);
+        Object.keys(byteSummary).map((item) => {
+            bytePctSummary[item] = ((byteSummary[item] / byteSummary.total) * 100).toFixed(2);
+        });
+
+        Object.keys(byteSummary).map((item) => {
+            console.log(item + "=> " + byteSummary[item] + "/" + byteSummary.total);
+            // can't bundle up bytePctSummary construction in this iteration because a race condition causes the % total for "other" to be miscalculated
+            byteSummary[item] = (byteSummary[item] / 1000).toFixed(0);
+            timeSummary[item] = (timeSummary[item] / 1000).toFixed(3);
+        });
+
+        $("#pageSize").text(byteSummary["total"].toString() + "KB");
+        $("#scriptSize").text(byteSummary["script"].toString() + "KB");
+        $("#styleSize").text(byteSummary["link"].toString() + "KB");
+        $("#imgSize").text(byteSummary["img"].toString() + "KB");
+        $("#otherSize").text(byteSummary["other"].toString() + "KB");
+        $("#scriptSizePct").text(bytePctSummary["script"].toString() + "%");
+        $("#styleSizePct").text(bytePctSummary["link"].toString() + "%");
+        $("#imgSizePct").text(bytePctSummary["img"].toString() + "%");
+        $("#otherSizePct").text(bytePctSummary["other"].toString() + "%");
+        $("#scriptLoadTime").text(timeSummary["script"].toString() + "s");
+        $("#styleLoadTime").text(timeSummary["link"].toString() + "s");
+        $("#imgLoadTime").text(timeSummary["img"].toString() + "s");
+        $("#otherLoadTime").text(timeSummary["other"].toString() + "s");
 
         // attempt pie chart
         // var container_parent = $('.display'),
@@ -320,19 +367,19 @@ $(document).ready(function() {
         // var data = [
         // 	{
         // 		"type": "Script",
-        // 		"percentage": (byteSummary.script/totalBytes).toString()
+        // 		"percentage": (byteSummary.script/byteSummary.total).toString()
         // 	},
         // 	{
         // 		"type": "Style",
-        // 		"percentage": (byteSummary.style/totalBytes).toString()
+        // 		"percentage": (byteSummary.style/byteSummary.total).toString()
         // 	},
         // 	{
         // 		"type": "Image",
-        // 		"percentage": (byteSummary.img/totalBytes).toString()
+        // 		"percentage": (byteSummary.img/byteSummary.total).toString()
         // 	},
         // 	{
         // 		"type": "Other",
-        // 		"percentage": (byteSummary.other/totalBytes).toString()
+        // 		"percentage": (byteSummary.other/byteSummary.total).toString()
         // 	}
         // ];
         //
