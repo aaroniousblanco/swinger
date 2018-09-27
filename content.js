@@ -77,6 +77,20 @@ $(document).ready(function() {
                             <h3>BUGSPLAT <i class="icon-tech-bug orange"></i></h3>
                         </div>
                         <div class="bar">
+                            <table>
+                                <tr>
+                                    <td class="label"><strong>URL: <strong></td>
+                                    <td id="bugSplatURL"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><strong>User Agent: <strong></td>
+                                    <td id="bugSplatUserAgent"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><strong>Timestamp: <strong></td>
+                                    <td id="bugSplatTimestamp"></td>
+                                </tr>
+                            </table>
                             <div id="screenshotButton" class="button-big">
                                 <i class="icon-art-photography"></i>
                             </div>
@@ -89,6 +103,20 @@ $(document).ready(function() {
                             <h3>PERFORMANCE <i class="icon-tech-performance orange"></i></h3>
                         </div>
                         <div class="bar">
+                            <table>
+                                <tr>
+                                    <td class="label"><strong>Script Size (Total): <strong></td>
+                                    <td id="scriptSize"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><strong>Style Size (Total): <strong></td>
+                                    <td id="styleSize"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><strong>Image Size (Total): <strong></td>
+                                    <td id="imgSize"></td>
+                                </tr>
+                            </table>
                             <div class="pie display">
                                 <div id="chart"></div>
                             </div>
@@ -151,66 +179,6 @@ $(document).ready(function() {
 	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
 	    				</div>
 	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
-	    			<li class="module">
-	    				<div class="bar">
-	    					<h3>Performance</h3>
-	    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam viverra finibus erat placerat egestas. Mauris eget metus eget erat aliquam aliquet.</p>
-	    				</div>
-	    			</li>
                 </ul>
             </div>
         </div>`,
@@ -233,6 +201,7 @@ $(document).ready(function() {
     	}
     }
 
+    // methode interactions and highlighting
     let $domUUID = $("#dom-uuid"),
         $title = $("#title"),
         $webType = $("#web-type"),
@@ -248,6 +217,289 @@ $(document).ready(function() {
         containersChecked = false,
         linksChecked = false,
         galleriesChecked = false;
+
+    // bug splat info
+    let userAgent = navigator.userAgent,
+        pageURL = window.location,
+        currentDate = new Date();
+
+    let datetime = (currentDate.getMonth()+1) + "/"
+                + currentDate.getDate() + "/"
+                + currentDate.getFullYear() + " @ "
+                + currentDate.getHours() + ":"
+                + currentDate.getMinutes() + ":"
+                + currentDate.getSeconds();
+
+    // add bug splat values to dom
+    $("#bugSplatURL").text(pageURL);
+    $("#bugSplatTimestamp").text(datetime);
+    $("#bugSplatUserAgent").text(userAgent);
+
+    // performance setup
+    var perfList = [];
+    function isDefined(obj) {
+    	return typeof(obj) !== 'undefined' && obj !== null ? obj : ''
+    }
+    var PerfItem = function(detail, i){
+    	this.name = isDefined(detail.name).split('/').pop()
+    	this.type = isDefined(detail.initiatorType)
+    	this.namePath = isDefined(detail.name)
+    	this.entryType = isDefined(detail.entryType)
+    	this.startTime = isDefined(detail.startTime).toFixed(2)
+    	this.responseStart = isDefined(detail.responseStart)
+    	this.responseEnd = isDefined(detail.responseEnd)
+    	this.duration = isDefined(detail.duration).toFixed(2)
+    }
+
+    function measurePerf(){
+    	var data = performance.getEntries();
+    	console.log("data: ", data);
+    	// data.forEach(function(item, i){
+    	// 	// console.log(item)
+    	// 	var perfItem = new PerfItem(item)
+    	// 	perfList.push(perfItem)
+    	// });
+
+        var byteSummary = {
+            script: 0,
+            link: 0,
+            img: 0
+        };
+
+        var timeSummary = {
+            script: 0,
+            link: 0,
+            img: 0
+        };
+
+        var totalBytes = 0;
+
+        data.forEach((item) => {
+            console.log(item.initiatorType);
+            if ('link' == item.initiatorType || 'script' == item.initiatorType || 'img' == item.initiatorType) {
+                byteSummary[item.initiatorType] += item.transferSize;
+                timeSummary[item.initiatorType] += item.duration;
+            }
+            if (!isNaN(item.transferSize)) {
+                totalBytes += item.transferSize;
+            }
+        });
+
+
+        byteSummary.other = totalBytes - (byteSummary.img + byteSummary.script + byteSummary.link);
+        console.log(byteSummary);
+        console.log(timeSummary);
+        console.log(byteSummary.img + byteSummary.script + byteSummary.link);
+        console.log(totalBytes);
+        $("#scriptSize").text(byteSummary.script);
+        $("#styleSize").text(byteSummary.link);
+        $("#imgSize").text(byteSummary.img);
+
+        // attempt pie chart
+        // var container_parent = $('.display'),
+        // 	chart_container = $('#chart'),
+        // 	margins = {top: 20, right: 20, bottom: 20, left: 20},
+        // 	width = 400 - margins.left - margins.right,
+        // 	height = (width * 0.8) - margins.top - margins.bottom,
+        // 	vis,
+        // 	vis_group,
+        // 	aspect,
+        // 	radius = Math.min(width, height) / 2 - margins.top;
+        //
+        // var defaults = {
+        //     pad_angle: .02,
+        //     animation: {
+        //         duration: 500,
+        //         easeType: 'back',
+        //         scale: 1,
+        //         scaleAmount: 1.1,
+        //         diffFromCenter: radius / 20,
+        //         delay_off: 0,
+        //         delay_over: 150,
+        //         strokeWidth_off: .5,
+        //         strokeWidth_over: 1.5
+        //     },
+        //     colors: {
+        //         fill_off: '#666',
+        //         fill_over: '#003264',
+        //         stroke_off: '#999',
+        //         stroke_over: '#000'
+        //     },
+        //     opacity: {
+        //         off: 1,
+        //         over: 1,
+        //         out: 0
+        //     }
+        // };
+        //
+        // var vis = d3.select('#chart').append('svg')
+        //     .attr({
+        //         'width': width + margins.left + margins.right,
+        //         'height': height + margins.top + margins.bottom,
+        //         'preserveAspectRatio': 'xMinYMid',
+        //         'viewBox': '0 0 ' + (width + margins.left + margins.right) + ' ' + (height + margins.top + margins.bottom)
+        //     });
+        //
+        // vis_group = vis.append('g')
+        //     .attr({
+        //         'transform': 'translate(' + (width/2 + margins.left) + ', ' + (height/2 + margins.top) + ')'
+        //     });
+        //
+        // aspect = chart_container.width() / chart_container.height();
+        //
+        // var colors = ['#b024e4', '#6420c1', '#c78721', '#003264', '#8a0600', '#baba71', '#666666'];
+        // var color = d3.scale.ordinal()
+        // 	.range(colors);
+        //
+        // var tooltip = d3.select('body').append('div')
+        // 	.attr({
+        // 		'class': 'tooltip',
+        // 		'opacity': 1e-6
+        // 	});
+        //
+        // $(window).on('resize', function() {
+        //     var targetWidth = container_parent.width()
+        //     vis.attr({
+        //         'width': targetWidth,
+        //         'height': Math.round(targetWidth / aspect)
+        //     })
+        // });
+        //
+        //
+        // var outerRadius = radius,
+        // 	innerRadius = radius / 2;
+        //
+        // var arc = d3.svg.arc()
+        // 	.padRadius(outerRadius)
+        // 	.innerRadius(innerRadius);
+        //
+        // var pie = d3.layout.pie()
+        // 	.padAngle(defaults.pad_angle)
+        // 	.value(function(d){
+        // 		return d.percentage
+        // 	});
+        //
+        // var data = [
+        // 	{
+        // 		"type": "Script",
+        // 		"percentage": (byteSummary.script/totalBytes).toString()
+        // 	},
+        // 	{
+        // 		"type": "Style",
+        // 		"percentage": (byteSummary.style/totalBytes).toString()
+        // 	},
+        // 	{
+        // 		"type": "Image",
+        // 		"percentage": (byteSummary.img/totalBytes).toString()
+        // 	},
+        // 	{
+        // 		"type": "Other",
+        // 		"percentage": (byteSummary.other/totalBytes).toString()
+        // 	}
+        // ];
+        //
+        // var Piechart = new function(){
+        // 	this.get = function(){
+        // 		// d3.json('data/population.json', function(error, data){
+        // 			data.forEach(function(d){
+        // 				d.percentage = +d.percentage
+        // 			})
+        //
+        // 			total = d3.sum(pie(data), function(d){
+        // 				return d.value
+        // 			})
+        //
+        // 			vis_group.selectAll('path')
+        // 				.data(pie(data))
+        // 					.enter().append('path')
+        // 				.each(function(d) {
+        // 					d.outerRadius = outerRadius
+        // 				})
+        // 				.attr({
+        // 					'd': arc,
+        // 					'fill': defaults.colors.fill_off,
+        // 					'stroke': defaults.colors.stroke_off,
+        // 					'stroke-width': defaults.animation.strokeWidth_off
+        // 				})
+        // 				.each(function(d) {
+        // 					d3.select(this).on('mouseover', user_interaction)
+        // 					d3.select(this).on('mouseout', user_interaction)
+        // 				})
+        // 		// })
+        // 	}
+        // };
+        //
+        // Piechart.get();
+        //
+        // function user_interaction(d){
+        // 	var rad = d3.event.type == 'mouseover' ? outerRadius + 20 : outerRadius;
+        // 	var fill_color = d3.event.type == 'mouseover' ? defaults.colors.fill_over : defaults.colors.fill_off;
+        // 	var delay = d3.event.type == 'mouseover' ? defaults.animation.delay_off : defaults.animation.delay_over;
+        // 	var tooltip_opacity = d3.event.type == 'mouseover' ? defaults.opacity.over : defaults.opacity.out;
+        // 	var text_opacity = d3.event.type == 'mouseover' ? defaults.opacity.over : defaults.opacity.out;
+        //
+        // 	// animate the arc
+        // 	d3.select(this)
+        // 		.transition()
+        // 			.delay(delay)
+        // 			.attrTween('d', function(d) {
+        // 				percentage = d.data.percentage
+        // 				var i = d3.interpolate(d.outerRadius, rad)
+        // 				return function(t) {
+        // 					d.outerRadius = i(t)
+        // 					return arc(d)
+        // 				}
+        // 			})
+        // 			.style({
+        // 				'cursor': 'pointer',
+        // 				'fill': fill_color
+        // 			});
+        //
+        // 	// show the tooltip and set the text
+        // 	d3.select('.tooltip')
+        // 		.html(function(){
+        // 			return '<span>' + d.data.race + '</span>'
+        // 		})
+        // 		.style({
+        // 			'left': (d3.event.pageX) + 'px',
+        // 			'top': (d3.event.pageY - 28) + 'px'
+        // 		})
+        // 		.transition()
+        // 			.duration(defaults.animation.duration)
+        // 			.style({
+        // 				'opacity': tooltip_opacity
+        // 			});
+        //
+        // 	// remove the previous percentage from the center of the chart
+        // 	d3.select('.percentage')
+        // 		.remove();
+        //
+        // 	// append the percentage to the center of the chart
+        // 	vis_group.append('text')
+        // 		.attr({
+        // 			'class': 'percentage',
+        // 			'x': radius / 20,
+        // 			'y': radius / 20 + 10,
+        // 			'text-anchor': 'middle',
+        // 			'font-size': radius / 3,
+        // 			'opacity': defaults.opacity.out
+        // 		})
+        // 		.text(function(t){
+        // 			return ((d.data.percentage/total) * 100).toFixed(0) + '%'
+        // 		})
+        // 		.transition()
+        // 			.duration(defaults.animation.duration)
+        // 			.style({
+        // 				'opacity': text_opacity
+        // 			});
+        //
+        // }
+
+    //	renderTable()
+    }
+
+    // grab performance data
+    measurePerf();
 
 
     $("[data-uuid]").mouseenter(function() {

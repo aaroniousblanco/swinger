@@ -17,8 +17,9 @@
           ],
           "js": [
               "external/jquery.min.js",
-              "content.js",
-              "main.js"
+              "external/d3.min.js",
+              "external/base-pie.js",
+              "content.js"
           ],
           "run_at" : "document_end"
       }
